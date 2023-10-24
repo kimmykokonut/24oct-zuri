@@ -4,6 +4,20 @@ function isEmpty(testString) {
 } //returns BOOLEAN
 
 // Business Logic
+
+function howMany(word, text) {
+	let newArray = text.split(" ");
+	let commonArray = [];
+	let index = 0;
+	newArray.forEach(function(element, index) {
+		let wordCount = numberOfOccurrencesInText(element, text);
+		commonArray[element] = wordCount;
+		index += 1;
+	})
+
+	return commonArray;
+}
+
 function wordCounter(text) {
 	if (isEmpty(text)) {
 		return 0;
