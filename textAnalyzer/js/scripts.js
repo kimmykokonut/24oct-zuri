@@ -39,3 +39,4 @@ function censor(word, text) {
 	const newText = outputArray.join(' ');
 	return newText;
 }
+// tb done: put muppeteer, biffaroni, and loopdaloop in array and remove from text
