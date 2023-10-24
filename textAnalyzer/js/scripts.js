@@ -15,12 +15,27 @@
 // }
 
 function numberOfOccurrencesInText(word, text) {
+  const textArray = text.split(" ");
+  let wordCount = 0;
+  textArray.forEach(function(element) {
+    if (element.toLowerCase().includes(word.toLowerCase())) {
+      wordCount++;
+    }
+  });
+  return wordCount;
+}
+
+function censor(word, text) {
 	const textArray = text.split(" ");
-	let wordCount = 0;
+	const outputArray = [];
 	textArray.forEach(function(element) {
 		if (element.toLowerCase().includes(word.toLowerCase())) {
-			wordCount++
+			outputArray.push('');
+			console.log('hi');
+		} else {
+			outputArray.push(element);
 		}
 	});
-		return wordCount;
-	}
+	const newText = outputArray.join(' ');
+	return newText;
+}
