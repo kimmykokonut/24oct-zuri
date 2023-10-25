@@ -84,3 +84,32 @@ const text = "Yesterday I visited the muppeteer and zoinks it was a total biffar
 const swears = ["zoinks", "", ""]
 numberOfOccurencesInText(swears, text);
 Expected Output: 0
+
+-------------------
+Test: "it should change array values to lowercase to fix bug with Hi being counted as unique against hi
+Code: const lowerArray = [];
+	textArray.forEach(function(word) {
+		lowerArray.push(word.toLowerCase());
+	});
+Expected Output: hey: 1
+hi: 3
+there: 2
+whoa: 2
+yay: 2
+yo: 2
+
+Test: "it should sort array in order of most used to least" (by value?)
+Code:
+Expected Output: 
+Most common words:
+hi: 3
+there: 2
+yo: 2
+yay: 2
+whoa: 2
+hey: 1
+
+code: 	const sortedArray = commonArray.sort((x, y) => x.value.length - y.value.legth);
+nope, sorts by key alpha
+
+final test: display list to user (not started)

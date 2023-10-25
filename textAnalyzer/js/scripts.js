@@ -7,12 +7,12 @@ function isEmpty(testString) {
 
 function howMany(word, text) {
 	const textArray = text.split(" ");
-	// console.log(textArray);
+	// make array all lowercase
 	const lowerArray = [];
 	textArray.forEach(function(word) {
 		lowerArray.push(word.toLowerCase());
 	});
-	console.log(lowerArray);
+	// make new array populate with word:occurance count
 	let commonArray = [];
 	let index = 0;
 	lowerArray.forEach(function(element, index) {
@@ -20,7 +20,9 @@ function howMany(word, text) {
 		commonArray[element] = commonCount;
 		index += 1;
 	});
-	return commonArray;
+	//sort array by highest value first. line below not working
+	// const sortedArray = commonArray.sort((a, b) => a.value - b.value);
+	return commonArray; //returns array
 }
 
 function wordCounter(text) {
@@ -108,5 +110,4 @@ function handleFormSubmission(event) {
 
 window.addEventListener("load", function () {
 	document.querySelector("form#word-counter").addEventListener("submit", handleFormSubmission);
-
 });
