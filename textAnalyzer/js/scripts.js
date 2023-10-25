@@ -6,15 +6,20 @@ function isEmpty(testString) {
 // Business Logic
 
 function howMany(word, text) {
-	let newArray = text.split(" ");
+	const textArray = text.split(" ");
+	// console.log(textArray);
+	const lowerArray = [];
+	textArray.forEach(function(word) {
+		lowerArray.push(word.toLowerCase());
+	});
+	console.log(lowerArray);
 	let commonArray = [];
 	let index = 0;
-	newArray.forEach(function(element, index) {
-		let wordCount = numberOfOccurrencesInText(element, text);
-		commonArray[element] = wordCount;
+	lowerArray.forEach(function(element, index) {
+		let commonCount = numberOfOccurrencesInText(element, text);
+		commonArray[element] = commonCount;
 		index += 1;
-	})
-
+	});
 	return commonArray;
 }
 
