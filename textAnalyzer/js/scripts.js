@@ -9,13 +9,13 @@ function howMany(word, text) {
 	const textArray = text.split(" ");
 	// make array all lowercase
 	const lowerArray = [];
-	textArray.forEach(function(word) {
+	textArray.forEach(function (word) {
 		lowerArray.push(word.toLowerCase());
 	});
 	// make new array populate with word:occurance count
 	let commonArray = [];
 	let index = 0;
-	lowerArray.forEach(function(element, index) {
+	lowerArray.forEach(function (element, index) {
 		let commonCount = numberOfOccurrencesInText(element, text);
 		commonArray[element] = commonCount;
 		index += 1;
@@ -57,9 +57,14 @@ function boldPassage(word, text) {
 	if (isEmpty(word) || isEmpty(text)) {
 		return null;
 	}
+	const boldResult = document.querySelector("div#bolded-passage");
+	const h3 = document.createElement("h3");
+	h3.innerText = "Your text passage with chosen word in bold: ";
+	boldResult.append(h3);
 	const p = document.createElement("p");
+	boldResult.append(p);
 	let textArray = text.split(" ");
-	textArray.forEach(function(element, index) {
+	textArray.forEach(function (element, index) {
 		if (word === element) {
 			const bold = document.createElement("strong");
 			bold.append(element);
