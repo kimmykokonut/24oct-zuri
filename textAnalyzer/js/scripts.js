@@ -1,48 +1,9 @@
 //Utility Logic
 function isEmpty(testString) {
 	return (testString.trim().length === 0);
-} //returns BOOLEAN
+} //returns BOOLEAN. if str empty, return true 
 
 // Business Logic
-//how many times words appear hi:3, etc
-function howMany(word, text) { 
-	if (isEmpty(text)) { //calling isEmpty func
-		return 0;
-	}
-	const textArray = text.split(" ");
-	// make array all lowercase
-	const lowerArray = [];
-	textArray.forEach(function(word) {
-		lowerArray.push(word.toLowerCase());
-		console.log(lowerArray);
-	});
-	// make new array populate with word:occurance count
-	let commonArray = [];
-	let index = 0;
-	lowerArray.forEach(function(element, index) {
-		//calvins. removes duplicate words but all are word:1
-		// if (!commonArray.includes(word)) {
-		// 	let wordInfo = word;
-		// 	let wordCount = wordCounter(word, text);
-		// 	let output = wordInfo + ':' + wordCount;
-		// 	console.log(output);
-		// 	const p3 = document.createElement("p");
-		// 	p3.innerText = word + ":" + wordCount;
-		// 	document.getElementById("bolded-passage").append(p3);
-		// 	commonArray.push(word);
-		// }
-		// My attempt. Produced array, didn't get it to print
-		let commonCount = numberOfOccurrencesInText(element, text);
-		console.log(commonCount);
-		commonArray[element] = commonCount;
-		console.log(commonCount);
-		index += 1;
-	});
-	//sort array by highest value first. line below not working
-	// const sortedArray = commonArray.sort((a, b) => a.value - b.value);
-	console.log(commonArray);
-	return commonArray; //returns array
-}
 
 function wordCounter(text) {
 	if (isEmpty(text)) { //calling isEmpty func
@@ -71,6 +32,33 @@ function numberOfOccurrencesInText(word, text) {
 	});
 	return wordCount;
 }
+// ADD SWEAR CENSOR FUNCTION
+// let text = "Yesterday I visited the muppeteer and zoinks it was a total biffaroni so I left after the loopdaloop."
+function censor(text) {
+	let cleanText = removePunct(text);
+	const offensiveWords = ["zoinks", "muppeteer", "biffaroni", "loopdaloop"];
+	const textArray = cleanText.split(" ");
+	let outputArray = [];
+	outputArray = textArray.filter(function (element) {
+		return !offensiveWords.includes(element.toLowerCase());
+	});
+	const outputString = outputArray.join(' ');
+	return outputString;
+}
+function checkPunct(char) {
+	const punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
+	return punctuation.includes(char);
+}
+function removePunct(str) {
+	let strNoPunct = '';
+	for (let i = 0; i < str.length; i++) {
+		let character = str.charAt(i);
+		if (!checkPunct(character)) {
+			strNoPunct += character;
+		}
+	}
+	return strNoPunct;
+}
 
 function boldPassage(word, text) {
 	if (isEmpty(word) || isEmpty(text)) { //calling isEmpty function
@@ -91,40 +79,63 @@ function boldPassage(word, text) {
 		} else {
 			p.append(element);
 		}
-		if (index !== (textArray.length - 1)) {
-			p.append(" ");
+		if (index !== (textArray.length - 1)) { //doesn't add space after last word
+			p.append(" "); //adds a space between words
 		}
 	});
 	return p;
 }
-// let text = "Yesterday I visited the muppeteer and zoinks it was a total biffaroni so I left after the loopdaloop."
-function censor(text) {
-	let cleanText = removePunct(text);
-	const offensiveWords = ["zoinks", "muppeteer", "biffaroni", "loopdaloop"];
-	const textArray = cleanText.split(" ");
-	let outputArray = [];
-	outputArray = textArray.filter(function(element) {
-		return !offensiveWords.includes(element.toLowerCase());
-	});
-	const outputString = outputArray.join(' ');
-	return outputString;
-}
-
-function checkPunct(char) {
-	const punctuation = '!"#$%&\'()*+,-./:;<=>?@[\\]^_`{|}~';
-	return punctuation.includes(char);
-}
-
-function removePunct (str) {
-	let strNoPunct = '';
-	for (let i=0; i < str.length; i++) {
-		let character = str.charAt(i);
-		if (!checkPunct(character)) {
-			strNoPunct += character;
+//how many times words appear hi:3, etc
+// const text = "hello there hello hello there hi how are you hello";
+// function wordCounterWithObjects(text) { //K:V pairs. doesn't work
+// 	if (isEmpty(text)) { //calling isEmpty func
+// 		return 0;
+// 	}
+// 	const wordArray = word.split(" ");
+// 	const wordCounter = {}; //for k:v
+// 	wordArray.forEach(function (word) {
+// 		if (!wordCounter[word]) { //check if already counted
+// 			wordCounter[word] = 1; //adds key w value 1
+// 		} else {
+// 			wordCounter[word] += 1; //if already exists, take value add 1
+// 		}
+// 		return wordCounter;
+// 	});
+// }
+function countWord(word, text) {
+	const textArray = text.split(' ');
+	let count = 0;
+	textArray.forEach(function (element) {
+		if (element === word) {
+			count += 1;
 		}
-	}
-	return strNoPunct;
+	});
+	return count;
 }
+function countAllWords(text) {
+	const commonResponse = document.querySelector('div#common-words');
+	const h3 = document.createElement('h3');
+	h3.innerText = "List of common words: ";
+	commonResponse.append(h3);
+	const p = document.createElement('p');
+	commonResponse.append(p);
+
+	const textArray = text.split(' ');
+	const checkedWords = [];
+
+	textArray.forEach(function (word) {
+		if (!checkedWords.includes(word)) {
+			/* checking if we have already counted this specific word by using the .includes method. the "!" character will check if the opposite of the condition is true, so rather than checking if the array includes the word, we are checking if it doesn't include the word. If it doesn't, it means we haven't checked it, so we can proceed to the logic below */
+			const wordOccurrences = countWord(word, text);
+			checkedWords.push(word);
+			//append to DOM
+			p.innerText = word + ": " + wordOccurrences; // Hello: 3
+		}
+	});
+	return p; //only printing 'you:1'
+}
+//sort array by highest value first. line below not working
+
 
 //UI Logic
 function handleFormSubmission(event) {
@@ -143,9 +154,8 @@ function handleFormSubmission(event) {
 	} else {
 		document.querySelector("div#bolded-passage").innerText = null;
 	}
-	const pHowMany = document.createElement("p");
-	document.body.append(pHowMany);
-	pHowMany.innerText = commonArray;
+	let commonWordsResponse = countAllWords(passage);
+	document.querySelector("div#common-words").append(commonWordsResponse); //only printing "you:1";
 }
 
 window.addEventListener("load", function () {
