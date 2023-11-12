@@ -1,3 +1,8 @@
+## Epicodus: Arrays and Looping and TDD
+### a small application that can analyze a passage of text (such as a paragraph). It will count the total number of words in the passage, the total number of sentences, the number of times a specific word comes up, and so on
+-----------------------
+## TDD Testing
+
 Describe: wordCounter()
 
 Test: "It should return 1 if a passage has just one word."
